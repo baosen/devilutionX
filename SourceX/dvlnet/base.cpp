@@ -147,7 +147,7 @@ bool base::SNetReceiveTurns(char** data, unsigned int* size, DWORD* status)
 	if (all_turns_arrived) {
 		for (auto i = 0; i < MAX_PLRS; ++i) {
 			if (connected_table[i]) {
-				size[i] = sizeof(turn_t);
+				size[i] = sizeof(DWORD);
 				status[i] |= PS_ACTIVE;
 				status[i] |= PS_TURN_ARRIVED;
 				turn_last[i] = turn_queue[i].front();
@@ -156,23 +156,20 @@ bool base::SNetReceiveTurns(char** data, unsigned int* size, DWORD* status)
 			}
 		}
 		return true;
-	} else {
-		for (auto i = 0; i < MAX_PLRS; ++i) {
-			if (connected_table[i]) {
-				if (!turn_queue[i].empty()) {
-					status[i] |= PS_ACTIVE;
-				}
-			}
+	} 
+	for (auto i = 0; i < MAX_PLRS; ++i) {
+		if (connected_table[i] && !turn_queue[i].empty()) {
+			status[i] |= PS_ACTIVE;
 		}
-		return false;
 	}
+	return false;
 }
 
 bool base::SNetSendTurn(char* data, unsigned int size)
 {
-	if (size != sizeof(turn_t))
+	if (size != sizeof(DWORD))
 		ABORT();
-	turn_t turn;
+	DWORD turn;
 	std::memcpy(&turn, data, sizeof(turn));
 	auto pkt = pktfty->make_packet<PT_TURN>(plr_self, PLR_BROADCAST, turn);
 	send(*pkt);

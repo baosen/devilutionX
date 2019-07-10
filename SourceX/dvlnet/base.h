@@ -58,8 +58,8 @@ protected:
 
 	message_t message_last;
 	std::deque<message_t> message_queue;
-	std::array<turn_t, MAX_PLRS> turn_last = {};
-	std::array<std::deque<turn_t>, MAX_PLRS> turn_queue;
+	std::array<DWORD, MAX_PLRS> turn_last = {};
+	std::array<std::deque<DWORD>, MAX_PLRS> turn_queue;
 	std::array<bool, MAX_PLRS> connected_table = {};
 
 	plr_t plr_self = PLR_BROADCAST;

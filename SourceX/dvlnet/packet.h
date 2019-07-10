@@ -23,7 +23,6 @@ enum packet_type : uint8_t {
 
 typedef uint8_t plr_t;
 typedef uint32_t cookie_t;
-typedef int turn_t; // change int to something else in devilution code later
 typedef int leaveinfo_t; // also change later
 typedef std::array<unsigned char, crypto_secretbox_KEYBYTES> key_t;
 
@@ -38,7 +37,7 @@ protected:
 	plr_t m_src;
 	plr_t m_dest;
 	buffer_t m_message;
-	turn_t m_turn;
+	DWORD m_turn;
 	cookie_t m_cookie;
 	plr_t m_newplr;
 	buffer_t m_info;
@@ -59,7 +58,7 @@ public:
 	plr_t src();
 	plr_t dest();
 	const buffer_t& message();
-	turn_t turn();
+	DWORD turn();
 	cookie_t cookie();
 	plr_t newplr();
 	const buffer_t& info();
@@ -155,7 +154,7 @@ inline void packet_out::create<PT_MESSAGE>(plr_t s, plr_t d, buffer_t m)
 }
 
 template<>
-inline void packet_out::create<PT_TURN>(plr_t s, plr_t d, turn_t u)
+inline void packet_out::create<PT_TURN>(plr_t s, plr_t d, DWORD u)
 {
 	if (have_encrypted || have_decrypted)
 		ABORT();

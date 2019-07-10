@@ -11,7 +11,7 @@ static CCritSect sgMemCrit;
 DWORD gdwDeltaBytesSec;
 BOOLEAN nthread_should_run;
 DWORD gdwTurnsInTransit;
-int glpMsgTbl[MAX_PLRS];
+DWORD *glpMsgTbl[MAX_PLRS];
 unsigned int glpNThreadId;
 char sgbSyncCountdown;
 int turn_upper_bit;
@@ -43,15 +43,14 @@ void nthread_terminate_game(const char *pszFcn)
 
 DWORD nthread_send_and_recv_turn(DWORD cur_turn, int turn_delta)
 {
-	DWORD new_cur_turn;
-	int turn, turn_tmp;
 	int curTurnsInTransit;
-
-	new_cur_turn = cur_turn;
 	if (!SNetGetTurnsInTransit(&curTurnsInTransit)) {
 		nthread_terminate_game("SNetGetTurnsInTransit");
 		return 0;
 	}
+
+	DWORD turn, turn_tmp;
+	DWORD new_cur_turn = cur_turn;
 	while (curTurnsInTransit < gdwTurnsInTransit) {
 		curTurnsInTransit++;
 

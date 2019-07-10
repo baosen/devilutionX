@@ -285,7 +285,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 #ifdef _DEBUG
 		if (showintrodebug)
 #endif
-			play_movie("gendata\\logo.smk", TRUE);
+			;//play_movie("gendata\\logo.smk", TRUE);
 
 		{
 			char szValueName[] = "Intro";

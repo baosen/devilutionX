@@ -202,23 +202,19 @@ void multi_send_msg_packet(int pmask, BYTE *a2, BYTE len)
 
 void multi_msg_countdown()
 {
-	int i;
-
-	for (i = 0; i < MAX_PLRS; i++) {
+	for (int i = 0; i < MAX_PLRS; i++) {
 		if (player_state[i] & 0x20000) {
-			if (gdwMsgLenTbl[i] == 4)
-				multi_parse_turn(i, *(DWORD *)glpMsgTbl[i]);
+			if (gdwMsgLenTbl[i] == sizeof(DWORD))
+				multi_parse_turn(i, *glpMsgTbl[i]);
 		}
 	}
 }
 
 void multi_parse_turn(int pnum, int turn)
 {
-	DWORD absTurns;
-
 	if (turn >> 31)
 		multi_handle_turn_upper_bit(pnum);
-	absTurns = turn & 0x7FFFFFFF;
+	DWORD absTurns = turn & 0x7FFFFFFF;
 	if (sgbSentThisCycle < gdwTurnsInTransit + absTurns) {
 		if (absTurns >= 0x7FFFFFFF)
 			absTurns &= 0xFFFF;

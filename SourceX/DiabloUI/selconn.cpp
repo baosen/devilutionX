@@ -27,8 +27,8 @@ UI_Item SELCONNECT_DIALOG[] = {
 	{ { 35, 393, 205, 21 }, UI_TEXT, UIS_CENTER, 0, selconn_Gateway }, // Gateway
 	{ { 16, 427, 250, 35 }, UI_BUTTON, UIS_CENTER | UIS_VCENTER | UIS_BIG | UIS_GOLD | UIS_HIDDEN, 0, "Change Gateway" },
 	{ { 300, 211, 295, 33 }, UI_TEXT, UIS_CENTER | UIS_BIG, 0, "Select Connection" },
-	{ { 305, 256, 285, 26 }, UI_LIST, UIS_CENTER | UIS_VCENTER | UIS_GOLD, 0, "Client-Server (TCP)" },
-	{ { 305, 282, 285, 26 }, UI_LIST, UIS_CENTER | UIS_VCENTER | UIS_GOLD, 1, "Peer-to-Peer (UDP)" },
+	{ { 305, 256, 285, 26 }, UI_LIST, UIS_CENTER | UIS_VCENTER | UIS_GOLD, 0, "Local Area Network" },
+	{ { 305, 282, 285, 26 }, UI_LIST, UIS_CENTER | UIS_VCENTER | UIS_GOLD, 1, "Direct IP" },
 	{ { 305, 308, 285, 26 }, UI_LIST, UIS_CENTER | UIS_VCENTER | UIS_GOLD, 2, "Loopback" },
 	{ { 305, 334, 285, 26 }, UI_LIST, UIS_CENTER | UIS_VCENTER | UIS_GOLD },
 	{ { 305, 360, 285, 26 }, UI_LIST, UIS_CENTER | UIS_VCENTER | UIS_GOLD },

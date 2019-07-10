@@ -42,7 +42,7 @@ const buffer_t& packet::message()
 	return m_message;
 }
 
-turn_t packet::turn()
+DWORD packet::turn()
 {
 	if (!have_decrypted)
 		ABORT();
