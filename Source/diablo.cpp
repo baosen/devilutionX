@@ -88,7 +88,7 @@ BOOL StartGame(BOOL bNewGame, BOOL bSinglePlayer)
 	BOOL fExitProgram;
 	unsigned int uMsg;
 
-	is_not_multiplayer_game = 1;
+	is_not_ingame = 1;
 
 	do {
 		fExitProgram = FALSE;
@@ -99,7 +99,7 @@ BOOL StartGame(BOOL bNewGame, BOOL bSinglePlayer)
 			break;
 		}
 
-		is_not_multiplayer_game = 0;
+		is_not_ingame = 0;
 
 		if (bNewGame || !gbValidSaveFile) {
 			InitLevels();
@@ -120,7 +120,7 @@ BOOL StartGame(BOOL bNewGame, BOOL bSinglePlayer)
 	SNetDestroy();
 	return gbRunGameResult;
 }
-// 678640: using guessed type char is_not_multiplayer_game;
+// 678640: using guessed type char is_not_ingame;
 
 void run_game_loop(unsigned int uMsg)
 {
