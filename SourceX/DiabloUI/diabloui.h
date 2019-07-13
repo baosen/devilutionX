@@ -80,6 +80,7 @@ extern Art ArtFocus[3];
 extern Art ArtBackground;
 extern Art ArtCursor;
 extern Art ArtHero;
+extern int SelectedItemMax;
 
 typedef enum TXT_JUST {
 	JustLeft = 0,
