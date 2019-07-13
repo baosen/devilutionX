@@ -18,7 +18,7 @@ int gbDifficulty;
 static _SNETPROGRAMDATA *m_client_info;
 extern DWORD provider;
 
-UI_Item SELUDPGAME_DIALOG[] = {
+static UI_Item SELINTERNETLANGAME_DIALOG[] = {
 	{ { 0, 0, 640, 480 }, UI_IMAGE, 0, 0, NULL, &ArtBackground },
 	{ { 24, 161, 590, 35 }, UI_TEXT, UIS_CENTER | UIS_BIG, 0, "Join Internet/LAN Games" },
 	{ { 35, 211, 205, 33 }, UI_TEXT, UIS_MED, 0, "Description:" },
@@ -26,15 +26,17 @@ UI_Item SELUDPGAME_DIALOG[] = {
 	{ { 300, 211, 295, 33 }, UI_TEXT, UIS_CENTER | UIS_BIG, 0, "Select Action" },
 	{ { 305, 255, 285, 26 }, UI_LIST, UIS_CENTER | UIS_MED | UIS_GOLD, 0, "Create Game" },
 	{ { 305, 281, 285, 26 }, UI_LIST, UIS_CENTER | UIS_MED | UIS_GOLD, 1, "Enter IP" },
+	// blank filler start
 	{ { 305, 307, 285, 26 }, UI_LIST, UIS_CENTER | UIS_MED | UIS_GOLD },
 	{ { 305, 333, 285, 26 }, UI_LIST, UIS_CENTER | UIS_MED | UIS_GOLD },
 	{ { 305, 359, 285, 26 }, UI_LIST, UIS_CENTER | UIS_MED | UIS_GOLD },
 	{ { 305, 385, 285, 26 }, UI_LIST, UIS_CENTER | UIS_MED | UIS_GOLD },
+    // blank filler end
 	{ { 299, 427, 140, 35 }, UI_BUTTON, UIS_CENTER | UIS_VCENTER | UIS_BIG | UIS_GOLD, 0, "OK", (void *)UiFocusNavigationSelect },
 	{ { 449, 427, 140, 35 }, UI_BUTTON, UIS_CENTER | UIS_VCENTER | UIS_BIG | UIS_GOLD, 0, "Cancel", (void *)UiFocusNavigationEsc },
 };
 
-UI_Item SELDIFF_DIALOG[] = {
+static UI_Item SELDIFF_DIALOG[] = {
 	{ { 0, 0, 640, 480 }, UI_IMAGE, 0, 0, NULL, &ArtBackground },
 	{ { 24, 161, 590, 35 }, UI_TEXT, UIS_CENTER | UIS_BIG, 0, "Create Game" },
 	{ { 34, 211, 205, 33 }, UI_TEXT, UIS_CENTER | UIS_BIG, 0, selgame_Lable }, // DIFF
@@ -47,7 +49,7 @@ UI_Item SELDIFF_DIALOG[] = {
 	{ { 449, 427, 140, 35 }, UI_BUTTON, UIS_CENTER | UIS_VCENTER | UIS_BIG | UIS_GOLD, 0, "Cancel", (void *)UiFocusNavigationEsc },
 };
 
-UI_Item ENTERIP_DIALOG[] = {
+static UI_Item ENTERIP_DIALOG[] = {
 	{ { 0, 0, 640, 480 }, UI_IMAGE, 0, 0, NULL, &ArtBackground },
 	{ { 24, 161, 590, 35 }, UI_TEXT, UIS_CENTER | UIS_BIG, 0, "Join Internet/LAN Games" },
 	{ { 35, 211, 205, 33 }, UI_TEXT, UIS_MED, 0, "Description:" },
@@ -58,7 +60,7 @@ UI_Item ENTERIP_DIALOG[] = {
 	{ { 449, 427, 140, 35 }, UI_BUTTON, UIS_CENTER | UIS_VCENTER | UIS_BIG | UIS_GOLD, 0, "Cancel", (void *)UiFocusNavigationEsc },
 };
 
-UI_Item ENTERPASSWORD_DIALOG[] = {
+static UI_Item ENTERPASSWORD_DIALOG[] = {
 	{ { 0, 0, 640, 480 }, UI_IMAGE, 0, 0, NULL, &ArtBackground },
 	{ { 24, 161, 590, 35 }, UI_TEXT, UIS_CENTER | UIS_BIG, 0, "Join Internet/LAN Games" },
 	{ { 35, 211, 205, 33 }, UI_TEXT, UIS_MED, 0, "Description:" },
@@ -87,7 +89,7 @@ void selgame_GameSelection_Init()
 	}
 
 	SRegLoadString("Phone Book", "Entry1", 0, selgame_Ip, 128);
-	UiInitList(0, 1, selgame_GameSelection_Focus, selgame_GameSelection_Select, selgame_GameSelection_Esc, SELUDPGAME_DIALOG, size(SELUDPGAME_DIALOG));
+	UiInitList(0, 1, selgame_GameSelection_Focus, selgame_GameSelection_Select, selgame_GameSelection_Esc, SELINTERNETLANGAME_DIALOG, size(SELINTERNETLANGAME_DIALOG));
 }
 
 void selgame_GameSelection_Focus(int value)
@@ -101,7 +103,7 @@ void selgame_GameSelection_Focus(int value)
 		break;
 	}
 
-	for (auto &item : SELUDPGAME_DIALOG) {
+	for (auto &item : SELINTERNETLANGAME_DIALOG) {
 		if (item.caption != NULL && !(item.flags & (UIS_VCENTER | UIS_CENTER)))
 			WordWrap(&item);
 	}
