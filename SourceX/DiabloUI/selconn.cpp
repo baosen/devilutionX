@@ -86,7 +86,7 @@ void selconn_Select(int value)
 		provider = 'UDPN';
 		break;
 	case 2:
-		provider = 'SCBL';
+		provider = 'SCBL'; // loopback.
 		break;
 	}
 

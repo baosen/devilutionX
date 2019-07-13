@@ -80,7 +80,7 @@ void selgame_GameSelection_Init()
 	selgame_enteringGame = false;
 	selgame_selectedGame = 0;
 
-	if (provider == 'SCBL') {
+	if (provider == 'SCBL') { // is loopback-provider?
 		selgame_enteringGame = true;
 		selgame_GameSelection_Select(0);
 		return;
@@ -113,10 +113,10 @@ void selgame_GameSelection_Select(int value)
 	selgame_selectedGame = value;
 
 	switch (value) {
-	case 0:
+	case 0: // "Select Difficulty"-dialog.
 		UiInitList(0, 2, selgame_Diff_Focus, selgame_Diff_Select, selgame_Diff_Esc, SELDIFF_DIALOG, size(SELDIFF_DIALOG));
 		break;
-	case 1:
+	case 1: // "Password"-dialog.
 		UiInitList(0, 0, NULL, selgame_Password_Init, selgame_GameSelection_Init, ENTERIP_DIALOG, size(ENTERIP_DIALOG));
 		break;
 	}
@@ -156,7 +156,7 @@ void selgame_Diff_Select(int value)
 {
 	gbDifficulty = value;
 
-	if (provider == 'SCBL') {
+	if (provider == 'SCBL') { // is loopback-provider?
 		selgame_Password_Select(0);
 		return;
 	}
@@ -166,7 +166,7 @@ void selgame_Diff_Select(int value)
 
 void selgame_Diff_Esc()
 {
-	if (provider == 'SCBL') {
+	if (provider == 'SCBL') { // is loopback-provider?
 		selgame_GameSelection_Esc();
 		return;
 	}
