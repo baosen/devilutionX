@@ -116,7 +116,7 @@ void selgame_GameSelection_Select(int value)
 	case 0: // "Select Difficulty"-dialog.
 		UiInitList(0, 2, selgame_Diff_Focus, selgame_Diff_Select, selgame_Diff_Esc, SELDIFF_DIALOG, size(SELDIFF_DIALOG));
 		break;
-	case 1: // "Password"-dialog.
+	case 1: // "Enter IP"-dialog.
 		UiInitList(0, 0, NULL, selgame_Password_Init, selgame_GameSelection_Init, ENTERIP_DIALOG, size(ENTERIP_DIALOG));
 		break;
 	}
