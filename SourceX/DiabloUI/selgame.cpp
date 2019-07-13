@@ -5,19 +5,20 @@
 
 namespace dvl {
 
-char selgame_Lable[32];
-char selgame_Ip[129] = "";
-char selgame_Password[16] = "";
-char selgame_Description[256];
-bool selgame_enteringGame;
-int selgame_selectedGame;
-bool selgame_endMenu;
-int *gdwPlayerId;
-int gbDifficulty;
+static char selgame_Difficulty[32];
+static char selgame_Ip[129] = "";
+static char selgame_Password[16] = "";
+static char selgame_Description[256];
+static bool selgame_enteringGame;
+static int selgame_selectedGame;
+static bool selgame_endMenu;
+static int *gdwPlayerId;
+static int gbDifficulty;
 
 static _SNETPROGRAMDATA *m_client_info;
 extern DWORD provider;
 
+// "Join Internet/LAN Games"-dialog.
 static UI_Item SELINTERNETLANGAME_DIALOG[] = {
 	{ { 0, 0, 640, 480 }, UI_IMAGE, 0, 0, NULL, &ArtBackground },
 	{ { 24, 161, 590, 35 }, UI_TEXT, UIS_CENTER | UIS_BIG, 0, "Join Internet/LAN Games" },
@@ -36,10 +37,11 @@ static UI_Item SELINTERNETLANGAME_DIALOG[] = {
 	{ { 449, 427, 140, 35 }, UI_BUTTON, UIS_CENTER | UIS_VCENTER | UIS_BIG | UIS_GOLD, 0, "Cancel", (void *)UiFocusNavigationEsc },
 };
 
+// "Select Difficulty"-dialog.
 static UI_Item SELDIFF_DIALOG[] = {
 	{ { 0, 0, 640, 480 }, UI_IMAGE, 0, 0, NULL, &ArtBackground },
 	{ { 24, 161, 590, 35 }, UI_TEXT, UIS_CENTER | UIS_BIG, 0, "Create Game" },
-	{ { 34, 211, 205, 33 }, UI_TEXT, UIS_CENTER | UIS_BIG, 0, selgame_Lable }, // DIFF
+	{ { 34, 211, 205, 33 }, UI_TEXT, UIS_CENTER | UIS_BIG, 0, selgame_Difficulty }, // DIFF
 	{ { 35, 256, 205, 192 }, UI_TEXT, 0, 0, selgame_Description },             // Description
 	{ { 299, 211, 295, 35 }, UI_TEXT, UIS_CENTER | UIS_BIG, 0, "Select Difficulty" },
 	{ { 300, 282, 295, 26 }, UI_LIST, UIS_CENTER | UIS_MED | UIS_GOLD, DIFF_NORMAL, "Normal" },
@@ -49,6 +51,7 @@ static UI_Item SELDIFF_DIALOG[] = {
 	{ { 449, 427, 140, 35 }, UI_BUTTON, UIS_CENTER | UIS_VCENTER | UIS_BIG | UIS_GOLD, 0, "Cancel", (void *)UiFocusNavigationEsc },
 };
 
+// "Enter IP"-dialog.
 static UI_Item ENTERIP_DIALOG[] = {
 	{ { 0, 0, 640, 480 }, UI_IMAGE, 0, 0, NULL, &ArtBackground },
 	{ { 24, 161, 590, 35 }, UI_TEXT, UIS_CENTER | UIS_BIG, 0, "Join Internet/LAN Games" },
@@ -60,6 +63,7 @@ static UI_Item ENTERIP_DIALOG[] = {
 	{ { 449, 427, 140, 35 }, UI_BUTTON, UIS_CENTER | UIS_VCENTER | UIS_BIG | UIS_GOLD, 0, "Cancel", (void *)UiFocusNavigationEsc },
 };
 
+// "Enter Password"-dialog.
 static UI_Item ENTERPASSWORD_DIALOG[] = {
 	{ { 0, 0, 640, 480 }, UI_IMAGE, 0, 0, NULL, &ArtBackground },
 	{ { 24, 161, 590, 35 }, UI_TEXT, UIS_CENTER | UIS_BIG, 0, "Join Internet/LAN Games" },
@@ -135,15 +139,15 @@ void selgame_Diff_Focus(int value)
 {
 	switch (value) {
 	case DIFF_NORMAL:
-		sprintf(selgame_Lable, "Normal");
+		sprintf(selgame_Difficulty, "Normal");
 		sprintf(selgame_Description, "Normal Difficulty\nThis is where a starting character should begin the quest to defeat Diablo.");
 		break;
 	case DIFF_NIGHTMARE:
-		sprintf(selgame_Lable, "Nightmare");
+		sprintf(selgame_Difficulty, "Nightmare");
 		sprintf(selgame_Description, "Nightmare Difficulty\nThe denizens of the Labyrinth have been bolstered and will prove to be a greater challenge. This is recommended for experienced characters only.");
 		break;
 	case DIFF_HELL:
-		sprintf(selgame_Lable, "Hell");
+		sprintf(selgame_Difficulty, "Hell");
 		sprintf(selgame_Description, "Hell Difficulty\nThe most powerful of the underworld's creatures lurk at the gateway into Hell. Only the most experienced characters should venture in this realm.");
 		break;
 	}
