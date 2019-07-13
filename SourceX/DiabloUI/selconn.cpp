@@ -59,7 +59,7 @@ void selconn_Focus(int value)
 	int players = MAX_PLRS;
 	switch (value) {
 	case 0:
-		sprintf(selconn_Description, "All computers must be connected to the Internet or LAN.");
+		sprintf(selconn_Description, "All computers must be connected to an UDP/TCP-compatible network.");
 		players = MAX_PLRS;
 		break;
 	case 1:
