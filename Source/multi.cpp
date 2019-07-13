@@ -822,11 +822,11 @@ BOOL multi_init_single(_SNETPROGRAMDATA *client_info, _SNETPLAYERDATA *user_info
 BOOL multi_init_multi(_SNETPROGRAMDATA *client_info, _SNETPLAYERDATA *user_info, _SNETUIDATA *ui_info, int *pfExitProgram)
 {
 	BOOL first;
-	int playerId;
+	DWORD playerId;
 	int type;
 
 	for (first = TRUE;; first = FALSE) {
-		type = 0x00;
+		type = 0;
 		if (byte_678640) {
 			if (!UiSelectProvider(0, client_info, user_info, ui_info, &fileinfo, &type)
 			    && (!first || SErrGetLastError() != STORM_ERROR_REQUIRES_UPGRADE || !multi_upgrade(pfExitProgram))) {
@@ -843,7 +843,7 @@ BOOL multi_init_multi(_SNETPROGRAMDATA *client_info, _SNETPLAYERDATA *user_info,
 		byte_678640 = 1;
 	}
 
-	if ((DWORD)playerId >= MAX_PLRS) {
+	if (playerId >= MAX_PLRS) {
 		return FALSE;
 	} else {
 		myplr = playerId;
