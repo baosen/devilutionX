@@ -50,8 +50,8 @@ void selconn_Load()
 	UiInitList(0, 1, selconn_Focus, selconn_Select, selconn_Esc, SELCONNECT_DIALOG, size(SELCONNECT_DIALOG));
 }
 
-const char* incompatible_error = "Unable to join the detected game. Your version of Diablo is incompatible with the game creator's version.";
-const char* unable_to_establish_error = "Unable to establish a connection. A game of Diablo was not detected at the specified IP address.";
+const char incompatible_error[] = "Unable to join the detected game. Your version of Diablo is incompatible with the game creator's version.";
+const char unable_to_establish_error[] = "Unable to establish a connection. A game of Diablo was not detected at the specified IP address.";
 
 void selconnerror_Load()
 {
