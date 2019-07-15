@@ -36,10 +36,28 @@ UI_Item SELCONNECT_DIALOG[] = {
 	{ { 454, 427, 140, 35 }, UI_BUTTON, UIS_CENTER | UIS_VCENTER | UIS_BIG | UIS_GOLD, 0, "Cancel", (void *)UiFocusNavigationEsc },
 };
 
+
+UI_Item SELCONNECTERROR_DIALOG[] = {
+    { { 0, 0, 640, 480 }, UI_IMAGE, 0, 0, NULL, &ArtBackground },
+    { { 24, 161, 590, 35 }, UI_TEXT, UIS_CENTER | UIS_BIG, 0, "Multi Player Game" },
+    { { 142, 230, 290, 35 }, UI_TEXT,  UIS_MED, 0, NULL },
+    { { 223, 400, 200, 35 }, UI_LIST, UIS_CENTER | UIS_BIG | UIS_GOLD, 0, "OK", (void *)UiFocusNavigationSelect },
+};
+
 void selconn_Load()
 {
 	LoadBackgroundArt("ui_art\\selconn.pcx");
 	UiInitList(0, 1, selconn_Focus, selconn_Select, selconn_Esc, SELCONNECT_DIALOG, size(SELCONNECT_DIALOG));
+}
+
+const char* incompatible_error = "Unable to join the detected game. Your version of Diablo is incompatible with the game creator's version.";
+const char* unable_to_establish_error = "Unable to establish a connection. A game of Diablo was not detected at the specified IP address.";
+
+void selconnerror_Load()
+{
+    LoadBackgroundArt("ui_art\\black.pcx");
+    SELCONNECTERROR_DIALOG[2].caption = strdup(unable_to_establish_error);
+    UiInitList(0, 1, selconnerror_Focus, selconn_Select, selconn_Esc, SELCONNECTERROR_DIALOG, size(SELCONNECTERROR_DIALOG));
 }
 
 void selconn_Free()
@@ -52,6 +70,11 @@ void selconn_Esc()
 {
 	selconn_ReturnValue = false;
 	selconn_EndMenu = true;
+}
+
+void selconnerror_Focus(int unused)
+{
+    WordWrap(&SELCONNECTERROR_DIALOG[2]);
 }
 
 void selconn_Focus(int value)
