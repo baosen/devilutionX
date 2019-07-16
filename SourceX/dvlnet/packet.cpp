@@ -3,7 +3,7 @@
 namespace dvl {
 namespace net {
 
-static constexpr bool disable_encryption = false;
+static constexpr bool disable_encryption = true;
 
 const buffer_t& packet::data()
 {
