@@ -81,7 +81,6 @@ BOOL nthread_recv_turns(BOOL *pfSendAsync)
 	sgbSyncCountdown--;
 	sgbPacketCountdown = sgbNetUpdateRate;
 	if (sgbSyncCountdown != 0) {
-
 		*pfSendAsync = TRUE;
 		last_tick += 50;
 		return TRUE;
