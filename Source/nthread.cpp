@@ -43,8 +43,7 @@ void nthread_terminate_game(const char *pszFcn)
 
 DWORD nthread_send_and_recv_turn(DWORD cur_turn, int turn_delta)
 {
-	DWORD new_cur_turn;
-	int turn, turn_tmp;
+	DWORD new_cur_turn, turn, turn_tmp;
 	int curTurnsInTransit;
 
 	new_cur_turn = cur_turn;
