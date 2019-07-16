@@ -8,8 +8,7 @@
 namespace dvl {
 namespace net {
 
-tcp_server::tcp_server(asio::io_context& ioc, std::string bindaddr,
-                       unsigned short port, std::string pw) :
+tcp_server::tcp_server(asio::io_context& ioc, std::string bindaddr, unsigned short port, std::string pw) :
 	ioc(ioc), pktfty(pw)
 {
 	auto addr = asio::ip::address::from_string(bindaddr);
@@ -82,7 +81,7 @@ void tcp_server::handle_recv(scc con, const asio::error_code& ec,
 				con->timeout = timeout_active;
 				handle_recv_packet(*pkt);
 			}
-		} catch (dvlnet_exception e) {
+		} catch (dvlnet_exception& e) {
 			drop_connection(con);
 			return;
 		}
@@ -92,9 +91,7 @@ void tcp_server::handle_recv(scc con, const asio::error_code& ec,
 
 void tcp_server::send_connect(scc con)
 {
-	auto pkt = pktfty.make_packet<PT_CONNECT>(PLR_MASTER, PLR_BROADCAST,
-	                                          con->plr);
-	send_packet(*pkt);
+	send_packet(*pktfty.make_packet<PT_CONNECT>(PLR_MASTER, PLR_BROADCAST, con->plr));
 }
 
 void tcp_server::handle_recv_newplr(scc con, packet& pkt)
@@ -104,9 +101,7 @@ void tcp_server::handle_recv_newplr(scc con, packet& pkt)
 		throw server_exception();
 	if (empty())
 		game_init_info = pkt.info();
-	auto reply = pktfty.make_packet<PT_JOIN_ACCEPT>(PLR_MASTER, PLR_BROADCAST,
-	                                                pkt.cookie(), newplr,
-	                                                game_init_info);
+	auto reply = pktfty.make_packet<PT_JOIN_ACCEPT>(PLR_MASTER, PLR_BROADCAST, pkt.cookie(), newplr, game_init_info);
 	start_send(con, *reply);
 	con->plr = newplr;
 	connections[newplr] = con;
@@ -138,14 +133,12 @@ void tcp_server::start_send(scc con, packet& pkt)
 	auto frame = std::make_shared<buffer_t>(frame_queue::make_frame(pkt.data()));
 	auto buf = asio::buffer(*frame);
 	asio::async_write(con->socket, buf,
-		[this, con, frame = std::move(frame)]
-		(const asio::error_code &ec, size_t bytes_sent) {
+		[this, con](const asio::error_code &ec, size_t bytes_sent) {
 		handle_send(con, ec, bytes_sent);
 	});
 }
 
-void tcp_server::handle_send(scc con, const asio::error_code& ec,
-                             size_t bytes_sent)
+void tcp_server::handle_send(scc con, const asio::error_code& ec, size_t bytes_sent)
 {
 	// empty for now
 }
@@ -153,10 +146,7 @@ void tcp_server::handle_send(scc con, const asio::error_code& ec,
 void tcp_server::start_accept()
 {
 	auto nextcon = make_connection();
-	acceptor->async_accept(nextcon->socket,
-	                       std::bind(&tcp_server::handle_accept,
-	                                 this, nextcon,
-	                                 std::placeholders::_1));
+	acceptor->async_accept(nextcon->socket, std::bind(&tcp_server::handle_accept, this, nextcon, std::placeholders::_1));
 }
 
 void tcp_server::handle_accept(scc con, const asio::error_code& ec)
@@ -200,12 +190,10 @@ void tcp_server::handle_timeout(scc con, const asio::error_code& ec)
 void tcp_server::drop_connection(scc con)
 {
 	if (con->plr != PLR_BROADCAST) {
-		auto pkt = pktfty.make_packet<PT_DISCONNECT>(PLR_MASTER, PLR_BROADCAST,
-		                                             con->plr, LEAVE_DROP);
+		auto pkt = pktfty.make_packet<PT_DISCONNECT>(PLR_MASTER, PLR_BROADCAST, con->plr, LEAVE_DROP);
 		connections[con->plr] = nullptr;
 		send_packet(*pkt);
-		// TODO: investigate if it is really ok for the server to
-		//       drop a client directly.
+		// TODO: investigate if it is really ok for the server to drop a client directly.
 	}
 	con->timer.cancel();
 	con->socket.close();
