@@ -22,8 +22,7 @@ BOOL SNetSendMessage(int playerID, void *data, unsigned int databytes)
 	return dvlnet_inst->SNetSendMessage(playerID, data, databytes);
 }
 
-BOOL SNetReceiveTurns(int a1, int arraysize, char **arraydata, unsigned int *arraydatabytes,
-    DWORD *arrayplayerstatus)
+BOOL SNetReceiveTurns(int a1, int arraysize, char *arraydata[], DWORD *arraydatabytes, DWORD *arrayplayerstatus)
 {
 	if (a1 != 0)
 		UNIMPLEMENTED();

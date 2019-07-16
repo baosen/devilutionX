@@ -11,7 +11,7 @@ static CCritSect sgMemCrit;
 DWORD gdwDeltaBytesSec;
 BOOLEAN nthread_should_run;
 DWORD gdwTurnsInTransit;
-int glpMsgTbl[MAX_PLRS];
+DWORD *glpMsgTbl[MAX_PLRS];
 unsigned int glpNThreadId;
 char sgbSyncCountdown;
 int turn_upper_bit;
