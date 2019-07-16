@@ -41,24 +41,15 @@ const int event_types[3] = {
 #ifdef _DEBUG
 void __cdecl dumphist(const char *pszFmt, ...)
 {
-	static FILE *sgpHistFile = NULL;
 	DWORD dwTicks;
 	va_list va;
 
 	va_start(va, pszFmt);
 
-	if (sgpHistFile == NULL) {
-		sgpHistFile = fopen("c:\\dumphist.txt", "wb");
-		if (sgpHistFile == NULL) {
-			return;
-		}
-	}
-
 	dwTicks = GetTickCount();
-	fprintf(sgpHistFile, "%4u.%02u  ", (dwTicks - gdwHistTicks) / 1000, (dwTicks - gdwHistTicks) % 1000 / 10);
-	vfprintf(sgpHistFile, pszFmt, va);
-	fprintf(
-	    sgpHistFile,
+	printf("%4u.%02u  ", (dwTicks - gdwHistTicks) / 1000, (dwTicks - gdwHistTicks) % 1000 / 10);
+	vprintf(pszFmt, va);
+	printf(
 	    "\r\n          (%d,%d)(%d,%d)(%d,%d)(%d,%d)\r\n",
 	    plr[0].plractive,
 	    player_state[0],
@@ -68,7 +59,8 @@ void __cdecl dumphist(const char *pszFmt, ...)
 	    player_state[2],
 	    plr[3].plractive,
 	    player_state[3]);
-	fflush(sgpHistFile);
+
+	va_end(va);
 }
 #endif
 
