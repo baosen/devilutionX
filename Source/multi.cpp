@@ -201,14 +201,9 @@ void multi_send_msg_packet(int pmask, BYTE *a2, BYTE len)
 
 void multi_msg_countdown()
 {
-	int i;
-
-	for (i = 0; i < MAX_PLRS; i++) {
-		if (player_state[i] & 0x20000) {
-			if (gdwMsgLenTbl[i] == 4)
-				multi_parse_turn(i, *glpMsgTbl[i]);
-		}
-	}
+	for (int i = 0; i < MAX_PLRS; i++)
+		if ((player_state[i] & 0x20000) && (gdwMsgLenTbl[i] == sizeof(DWORD)))
+			multi_parse_turn(i, *glpMsgTbl[i]);
 }
 
 void multi_parse_turn(int pnum, int turn)
