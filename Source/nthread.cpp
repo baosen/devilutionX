@@ -170,8 +170,7 @@ void nthread_start(BOOL set_turn_upper_bit)
 
 unsigned int __stdcall nthread_handler(void *a1)
 {
-	int delta;
-	int received;
+	int delta, received;
 
 	if (nthread_should_run) {
 		while (1) {
