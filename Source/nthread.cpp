@@ -27,9 +27,7 @@ static HANDLE sghThread = INVALID_HANDLE_VALUE;
 
 void nthread_terminate_game(const char *pszFcn)
 {
-	DWORD sErr;
-
-	sErr = SErrGetLastError();
+	DWORD sErr = SErrGetLastError();
 	if (sErr == STORM_ERROR_INVALID_PLAYER) {
 		return;
 	} else if (sErr == STORM_ERROR_GAME_TERMINATED) {
