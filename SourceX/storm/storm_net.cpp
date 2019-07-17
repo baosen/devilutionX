@@ -146,6 +146,7 @@ BOOL SNetCreateGame(
 {
 	if (GameTemplateSize != 8)
 		ABORT();
+
 	net::buffer_t game_init_info(GameTemplateData, GameTemplateData + GameTemplateSize);
 	dvlnet_inst->setup_gameinfo(std::move(game_init_info));
 
