@@ -14,11 +14,11 @@ static std::unique_ptr<net::abstract_net> dvlnet_inst;
  * @param fileinfo Ignore
  */
 int SNetInitializeProvider(
-		unsigned long            provider,
-		struct _SNETPROGRAMDATA *client_info,
-		struct _SNETPLAYERDATA  *user_info,
-		struct _SNETUIDATA      *ui_info,
-		struct _SNETVERSIONDATA *fileinfo
+	unsigned long            provider,
+	struct _SNETPROGRAMDATA *client_info,
+	struct _SNETPLAYERDATA  *user_info,
+	struct _SNETUIDATA      *ui_info,
+	struct _SNETVERSIONDATA *fileinfo
 )
 {
 	dvlnet_inst = net::abstract_net::make_net(provider);
