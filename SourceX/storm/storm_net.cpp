@@ -157,7 +157,14 @@ BOOL SNetCreateGame(
 }
 
 // Join an existing game.
-BOOL SNetJoinGame(int id, char *pszGameName, char *pszGamePassword, char *playerName, char *userStats, int *playerID)
+BOOL SNetJoinGame(
+	int   id,
+	char *pszGameName,     // used as IP address.
+	char *pszGamePassword, // game password.
+	char *playerName,      // name of the player that is joining the game.
+	char *userStats,
+	int  *playerID         // outputs your player ID.
+)
 {
 	return (*playerID = dvlnet_inst->join(pszGameName, pszGamePassword)) != -1;
 }
