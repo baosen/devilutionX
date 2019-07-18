@@ -156,11 +156,13 @@ BOOL SNetCreateGame(
 	return *playerID != -1;
 }
 
+// Join an existing game.
 BOOL SNetJoinGame(int id, char *pszGameName, char *pszGamePassword, char *playerName, char *userStats, int *playerID)
 {
 	return (*playerID = dvlnet_inst->join(pszGameName, pszGamePassword)) != -1;
 }
 
+// Leave a joined game.
 BOOL SNetLeaveGame(int type)
 {
 	return dvlnet_inst->SNetLeaveGame(type);
