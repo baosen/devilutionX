@@ -8,6 +8,30 @@ namespace dvl {
 
 static std::unique_ptr<net::abstract_net> dvlnet_inst;
 
+/**
+ * @brief Called by engine for single, called by ui for multi
+ * @param provider BNET, IPXN, MODM, SCBL or UDPN
+ * @param fileinfo Ignore
+ */
+int SNetInitializeProvider(
+		unsigned long            provider,
+		struct _SNETPROGRAMDATA *client_info,
+		struct _SNETPLAYERDATA  *user_info,
+		struct _SNETUIDATA      *ui_info,
+		struct _SNETVERSIONDATA *fileinfo
+)
+{
+	dvlnet_inst = net::abstract_net::make_net(provider);
+	return ui_info->selectnamecallback(client_info, user_info, ui_info, fileinfo, provider, NULL, 0, NULL, 0, NULL);
+}
+
+// Destroy/free the allocated network resources.
+BOOL SNetDestroy()
+{
+	DUMMY();
+	return true;
+}
+
 BOOL SNetSendServerChatCommand(const char *command)
 {
 	DUMMY();
@@ -99,30 +123,6 @@ BOOL SNetUnregisterEventHandler(int evtype, SEVTHANDLER func)
 
 // Get game information.
 BOOL SNetGetGameInfo(int type, void *dst, unsigned int length, unsigned int *byteswritten)
-{
-	DUMMY();
-	return true;
-}
-
-/**
- * @brief Called by engine for single, called by ui for multi
- * @param provider BNET, IPXN, MODM, SCBL or UDPN
- * @param fileinfo Ignore
- */
-int SNetInitializeProvider(
-	unsigned long            provider,
-	struct _SNETPROGRAMDATA *client_info,
-    struct _SNETPLAYERDATA  *user_info,
-	struct _SNETUIDATA      *ui_info,
-    struct _SNETVERSIONDATA *fileinfo
-)
-{
-	dvlnet_inst = net::abstract_net::make_net(provider);
-	return ui_info->selectnamecallback(client_info, user_info, ui_info, fileinfo, provider, NULL, 0, NULL, 0, NULL);
-}
-
-// Destroy/free the allocated network resources.
-BOOL SNetDestroy()
 {
 	DUMMY();
 	return true;
