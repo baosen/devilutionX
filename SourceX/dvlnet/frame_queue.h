@@ -16,7 +16,7 @@ public:
 private:
 	size_t current_size = 0;
 	std::deque<buffer_t> buffer_deque;
-	size_t nextsize = 0;
+	framesize_t nextsize = 0;
 
 	size_t size();
 	buffer_t read(size_t s);
