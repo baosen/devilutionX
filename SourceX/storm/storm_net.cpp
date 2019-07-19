@@ -3,10 +3,13 @@
 #include "devilution.h"
 #include "stubs.h"
 #include "dvlnet/abstract_net.h"
+#include <string>
+#include <unordered_map>
 
 namespace dvl {
 
 static std::unique_ptr<net::abstract_net> dvlnet_inst;
+//static std::unordered_map<int, std::string> ip_addresses;
 
 /**
  * Initialize a connection provider.
@@ -41,7 +44,10 @@ BOOL SNetSendServerChatCommand(const char *command)
 }
 
 // Send a message directly to a player over the network.
-BOOL SNetSendMessage(int playerID, void *data, unsigned int databytes)
+BOOL SNetSendMessage(
+	int          playerID,  // player ID.
+	void        *data,      // message data to send.
+	unsigned int databytes) // length of message data in bytes.
 {
 	return dvlnet_inst->SNetSendMessage(playerID, data, databytes);
 }
