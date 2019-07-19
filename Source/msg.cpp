@@ -47,7 +47,7 @@ void msg_send_packet(int pnum, const void *packet, DWORD dwSize)
 		msg_get_next_packet();
 		packeta = sgpCurrPkt;
 	}
-	memcpy((char *)&packeta[1] - packeta->dwSpaceLeft, packet, dwSize);
+	memcpy((char *)(packeta->data + 32000 - packeta->dwSpaceLeft), packet, dwSize);
 	sgpCurrPkt->dwSpaceLeft -= dwSize;
 }
 
