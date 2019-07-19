@@ -9,16 +9,18 @@ namespace dvl {
 static std::unique_ptr<net::abstract_net> dvlnet_inst;
 
 /**
+ * Initialize a connection provider.
+ *
  * @brief Called by engine for single, called by ui for multi
  * @param provider BNET, IPXN, MODM, SCBL or UDPN
  * @param fileinfo Ignore
  */
 int SNetInitializeProvider(
-	unsigned long            provider,
-	struct _SNETPROGRAMDATA *client_info,
-	struct _SNETPLAYERDATA  *user_info,
-	struct _SNETUIDATA      *ui_info,
-	struct _SNETVERSIONDATA *fileinfo
+	unsigned long            provider,    // type of network connection.
+	struct _SNETPROGRAMDATA *client_info, // client information.
+	struct _SNETPLAYERDATA  *user_info,   // user information.
+	struct _SNETUIDATA      *ui_info,     // user interface information.
+	struct _SNETVERSIONDATA *fileinfo     // file information.
 )
 {
 	dvlnet_inst = net::abstract_net::make_net(provider);
