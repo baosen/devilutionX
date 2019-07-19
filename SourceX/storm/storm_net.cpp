@@ -141,15 +141,15 @@ BOOL SNetGetGameInfo(int type, void *dst, unsigned int length, unsigned int *byt
  */
 BOOL SNetCreateGame(
 	const char *pszGameName,
-	const char *pszGamePassword,
+	const char *pszGamePassword,   // game password set by game creator.
 	const char *pszGameStatString,
     DWORD 		dwGameType,
-    char 	   *GameTemplateData,
-    int 		GameTemplateSize,
+    char 	   *GameTemplateData,  // points to the game template data in bytes.
+    int 		GameTemplateSize,  // size of the game template data in bytes.
     int 		playerCount,
     char 	   *creatorName,
     char 	   *a11,
-    int        *playerID
+    int        *playerID           // outputs a generated player ID for the user that created the game.
 )
 {
 	if (GameTemplateSize != 8)
