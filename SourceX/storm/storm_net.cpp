@@ -9,7 +9,7 @@
 namespace dvl {
 
 static std::unique_ptr<net::abstract_net> dvlnet_inst;
-//static std::array<int, 4> ip_addresses;
+//static std::array<int, MAX_PLRS> ip_addresses;
 
 /**
  * Initialize a connection provider.
