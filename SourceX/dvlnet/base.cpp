@@ -77,10 +77,11 @@ void base::recv_local(packet& pkt)
 	case PT_DISCONNECT:
 		if (pkt.newplr() != plr_self) {
 			if (connected_table[pkt.newplr()]) {
+				auto leaveinfo = pkt.leaveinfo();
 				_SNETEVENT ev;
 				ev.eventid = EVENT_TYPE_PLAYER_LEAVE_GAME;
 				ev.playerid = pkt.newplr();
-				ev.data = reinterpret_cast<unsigned char*>(&pkt.leaveinfo());
+				ev.data = reinterpret_cast<unsigned char*>(&leaveinfo);
 				ev.databytes = sizeof(leaveinfo_t);
 				run_event_handler(ev);
 				connected_table[pkt.newplr()] = false;
