@@ -1,12 +1,10 @@
-#include <memory>
-
 #include "devilution.h"
 #include "stubs.h"
 #include "dvlnet/abstract_net.h"
 
 namespace dvl {
 
-static std::unique_ptr<net::abstract_net> dvlnet_inst;
+static net::abstract_net* dvlnet_inst;
 
 /**
  * Initialize a connection provider.
@@ -30,7 +28,7 @@ int SNetInitializeProvider(
 // Destroy/free the allocated network resources.
 BOOL SNetDestroy()
 {
-	DUMMY();
+	delete dvlnet_inst;
 	return true;
 }
 

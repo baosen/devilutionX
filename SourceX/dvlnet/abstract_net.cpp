@@ -12,14 +12,14 @@ abstract_net::~abstract_net()
 {
 }
 
-std::unique_ptr<abstract_net> abstract_net::make_net(provider_t provider)
+abstract_net* abstract_net::make_net(provider_t provider)
 {
 	if (provider == 'TCPN') {
-		return std::make_unique<tcp_client>();
+		return new tcp_client;
 	} else if (provider == 'UDPN') {
-		return std::make_unique<udp_p2p>();
+		return new udp_p2p;
 	} else if (provider == 'SCBL' || provider == 0) {
-		return std::make_unique<loopback>();
+		return new loopback;
 	} else {
 		ABORT();
 	}

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <vector>
-#include <memory>
 #include <string>
 #include <exception>
 
@@ -32,7 +31,7 @@ public:
 	virtual void setup_gameinfo(buffer_t info) = 0;
 	virtual ~abstract_net();
 
-	static std::unique_ptr<abstract_net> make_net(provider_t provider);
+	static abstract_net* make_net(provider_t provider);
 };
 
 }  // namespace net
