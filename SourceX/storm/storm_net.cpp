@@ -1,10 +1,10 @@
 #include <memory>
+#include <string>
+#include <unordered_map>
 
 #include "devilution.h"
 #include "stubs.h"
 #include "dvlnet/abstract_net.h"
-#include <string>
-#include <unordered_map>
 
 namespace dvl {
 
