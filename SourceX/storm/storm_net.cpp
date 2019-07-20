@@ -52,7 +52,11 @@ BOOL SNetSendMessage(
 }
 
 // Receive a direct message from a player on the network.
-BOOL SNetReceiveMessage(int *senderplayerid, char **data, int *databytes)
+BOOL SNetReceiveMessage(
+	int *senderplayerid, // outputs the ID of the player that sent the message.
+	char **data,         // outputs the data sent as an array of bytes.
+	int *databytes       // outputs the number of bytes sent by the player.
+)
 {
 	if (!dvlnet_inst->SNetReceiveMessage(senderplayerid, data, databytes)) {
 		SErrSetLastError(STORM_ERROR_NO_MESSAGES_WAITING);
