@@ -119,13 +119,13 @@ int SNetGetProviderCaps(struct _SNETCAPS *caps)
 // Register event handler.
 BOOL SNetRegisterEventHandler(int evtype, SEVTHANDLER func)
 {
-	return dvlnet_inst->SNetRegisterEventHandler(*(event_type *)&evtype, func);
+	return dvlnet_inst->SNetRegisterEventHandler(*reinterpret_cast<event_type*>(&evtype), func);
 }
 
 // Unregister event handler.
 BOOL SNetUnregisterEventHandler(int evtype, SEVTHANDLER func)
 {
-	return dvlnet_inst->SNetUnregisterEventHandler(*(event_type *)&evtype, func);
+	return dvlnet_inst->SNetUnregisterEventHandler(*reinterpret_cast<event_type*>(&evtype), func);
 }
 
 // Get game information.
