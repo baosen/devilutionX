@@ -66,7 +66,10 @@ BOOL SNetReceiveMessage(
 }
 
 // Send a turn to all connected players over the network.
-BOOL SNetSendTurn(char *data, unsigned int databytes)
+BOOL SNetSendTurn(
+	char        *data,     // the array of bytes to send.
+	unsigned int databytes // the length of the array to send in bytes.
+)
 {
 	return dvlnet_inst->SNetSendTurn(data, databytes);
 }
