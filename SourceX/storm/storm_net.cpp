@@ -160,8 +160,7 @@ BOOL SNetCreateGame(
 
 	char addrstr[129] = "0.0.0.0";
 	SRegLoadString("dvlnet", "bindaddr", 0, addrstr, 128);
-	*playerID = dvlnet_inst->create(addrstr, pszGamePassword);
-	return *playerID != -1;
+	return (*playerID = dvlnet_inst->create(addrstr, pszGamePassword)) != -1;
 }
 
 // Join an existing game.
@@ -174,7 +173,7 @@ BOOL SNetJoinGame(
 	int  *playerID         // outputs your player ID.
 )
 {
-	return (*playerID = dvlnet_inst->join(pszGameName, pszGamePassword)) != -1;
+	return (*playerID = dvlnet_inst->join(pszGameName, pszGamePassword)) != -1; // -1 indicates error.
 }
 
 // Leave a joined game.
