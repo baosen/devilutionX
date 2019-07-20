@@ -135,9 +135,7 @@ BOOL SNetGetGameInfo(int type, void *dst, unsigned int length, unsigned int *byt
 	return true;
 }
 
-/**
- * @brief Called by engine for single, called by ui for multi
- */
+// Called by engine for single player, called by UI for multi player.
 BOOL SNetCreateGame(
 	const char *pszGameName,
 	const char *pszGamePassword,   // game password set by game creator.
@@ -192,9 +190,7 @@ BOOL SNetDropPlayer(int playerid, DWORD flags)
 	return dvlnet_inst->SNetDropPlayer(playerid, flags);
 }
 
-/**
- * @brief since we never signal STORM_ERROR_REQUIRES_UPGRADE the engine will not call this function
- */
+// since we never signal STORM_ERROR_REQUIRES_UPGRADE the engine will not call this function.
 BOOL SNetPerformUpgrade(DWORD *upgradestatus)
 {
 	UNIMPLEMENTED();
