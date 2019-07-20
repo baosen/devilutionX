@@ -113,8 +113,7 @@ bool base::SNetReceiveMessage(int* sender, char** data, int* size)
 
 bool base::SNetSendMessage(int playerID, void* data, unsigned int size)
 {
-	if (playerID != SNPLAYER_ALL && playerID != SNPLAYER_OTHERS
-	    && (playerID < 0 || playerID >= MAX_PLRS))
+	if (playerID != SNPLAYER_ALL && playerID != SNPLAYER_OTHERS && (playerID < 0 || playerID >= MAX_PLRS))
 		abort();
 	auto raw_message = reinterpret_cast<unsigned char*>(data);
 	buffer_t message(raw_message, raw_message + size);

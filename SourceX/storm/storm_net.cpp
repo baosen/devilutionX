@@ -1,6 +1,4 @@
 #include <memory>
-//#include <array>
-//#include <string>
 
 #include "devilution.h"
 #include "stubs.h"
@@ -9,7 +7,6 @@
 namespace dvl {
 
 static std::unique_ptr<net::abstract_net> dvlnet_inst;
-//static std::array<int, MAX_PLRS> ip_addresses;
 
 /**
  * Initialize a connection provider.
@@ -43,7 +40,9 @@ BOOL SNetSendServerChatCommand(const char *command)
 	return true;
 }
 
-// Send a message directly to a player over the network.
+// Send a message directly to a player over the network,
+// although the game never sends a direct message to one of the players.
+// It only broadcasts messages to all players.
 BOOL SNetSendMessage(
 	int          playerID,  // player ID.
 	void        *data,      // message data to send.
