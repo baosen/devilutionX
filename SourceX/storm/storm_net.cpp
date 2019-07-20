@@ -1,6 +1,6 @@
 #include <memory>
-#include <string>
-#include <unordered_map>
+//#include <array>
+//#include <string>
 
 #include "devilution.h"
 #include "stubs.h"
@@ -9,7 +9,7 @@
 namespace dvl {
 
 static std::unique_ptr<net::abstract_net> dvlnet_inst;
-//static std::unordered_map<int, std::string> ip_addresses;
+//static std::array<int, 4> ip_addresses;
 
 /**
  * Initialize a connection provider.
