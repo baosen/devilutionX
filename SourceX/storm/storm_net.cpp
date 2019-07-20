@@ -110,9 +110,9 @@ int SNetGetProviderCaps(struct _SNETCAPS *caps)
 	caps->maxmessagesize 		= 512;      // capped to 512; underflow if < 24
 	caps->maxqueuesize 			= 0;        // unused
 	caps->maxplayers 			= MAX_PLRS; // capped to 4
-	caps->bytessec 				= 1000000;  // ?
+	caps->bytessec 				= 1000000;  // bytes per second?
 	caps->latencyms 			= 0;        // unused
-	caps->defaultturnssec 		= 10;       // ?
+	caps->defaultturnssec 		= 10;       // default turn per second?
 	caps->defaultturnsintransit = 1; 	    // maximum acceptable number of turns in queue?
 	return 1;
 }
