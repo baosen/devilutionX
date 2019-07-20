@@ -16,7 +16,7 @@ static std::unique_ptr<net::abstract_net> dvlnet_inst;
  * @param fileinfo Ignore
  */
 int SNetInitializeProvider(
-	unsigned long            provider,    // type of network connection.
+	unsigned long            provider,    // type of network connection. game sets this to 'loopback' when playing single player.
 	struct _SNETPROGRAMDATA *client_info, // client information.
 	struct _SNETPLAYERDATA  *user_info,   // user information.
 	struct _SNETUIDATA      *ui_info,     // user interface information.
