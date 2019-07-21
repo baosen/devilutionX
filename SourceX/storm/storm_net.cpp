@@ -122,13 +122,19 @@ int SNetGetProviderCaps(struct _SNETCAPS *caps)
 }
 
 // Register event handler.
-BOOL SNetRegisterEventHandler(int evtype, SEVTHANDLER func)
+BOOL SNetRegisterEventHandler(
+	int         evtype, // event type.
+	SEVTHANDLER func    // event handler (callback).
+)
 {
 	return dvlnet_inst->SNetRegisterEventHandler(*reinterpret_cast<event_type*>(&evtype), func);
 }
 
 // Unregister event handler.
-BOOL SNetUnregisterEventHandler(int evtype, SEVTHANDLER func)
+BOOL SNetUnregisterEventHandler(
+	int         evtype, // event type.
+	SEVTHANDLER func    // event handler (callback).
+)
 {
 	return dvlnet_inst->SNetUnregisterEventHandler(*reinterpret_cast<event_type*>(&evtype), func);
 }
@@ -190,7 +196,10 @@ BOOLEAN SNetSetBasePlayer(int) // engine calls this only once with argument 1.
 }
 
 // Drop/disconnect a player from an established game.
-BOOL SNetDropPlayer(int playerid, DWORD flags)
+BOOL SNetDropPlayer(
+	int   playerid, // player ID to drop.
+	DWORD flags
+)
 {
 	return dvlnet_inst->SNetDropPlayer(playerid, flags);
 }
