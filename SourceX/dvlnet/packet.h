@@ -226,17 +226,20 @@ inline void packet_out::process_element(buffer_t& x)
 	encrypted_buffer.insert(encrypted_buffer.end(), x.begin(), x.end());
 }
 
-template <class T> void packet_out::process_element(T& x)
+template <class T>
+void packet_out::process_element(T& x)
 {
 	encrypted_buffer.insert(encrypted_buffer.end(), begin(x), end(x));
 }
 
-template <class T> const unsigned char* packet_out::begin(const T& x)
+template <class T>
+const unsigned char* packet_out::begin(const T& x)
 {
 	return reinterpret_cast<const unsigned char *>(&x);
 }
 
-template <class T> const unsigned char* packet_out::end(const T& x)
+template <class T>
+const unsigned char* packet_out::end(const T& x)
 {
 	return reinterpret_cast<const unsigned char *>(&x) + sizeof(T);
 }
