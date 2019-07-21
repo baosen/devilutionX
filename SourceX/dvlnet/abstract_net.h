@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <exception>
+#include <memory>
 
 #include "devilution.h"
 
@@ -31,7 +32,7 @@ public:
 	virtual void setup_gameinfo(buffer_t info) = 0;
 	virtual ~abstract_net() {}
 
-	static abstract_net* make_net(provider_t provider);
+	static std::unique_ptr<abstract_net> make_net(provider_t provider);
 };
 
 }  // namespace net

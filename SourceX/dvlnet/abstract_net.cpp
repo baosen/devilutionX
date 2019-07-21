@@ -8,14 +8,14 @@
 namespace dvl {
 namespace net {
 
-abstract_net* abstract_net::make_net(provider_t provider)
+std::unique_ptr<abstract_net> abstract_net::make_net(provider_t provider)
 {
 	if (provider == 'TCPN') {
-		return new tcp_client;
+		return std::make_unique<tcp_client>();
 	} else if (provider == 'UDPN') {
-		return new udp_p2p;
+		return std::make_unique<udp_p2p>();
 	} else if (provider == 'SCBL' || provider == 0) {
-		return new loopback;
+		return std::make_unique<loopback>();
 	} else {
 		ABORT();
 	}

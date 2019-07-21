@@ -4,7 +4,7 @@
 
 namespace dvl {
 
-static net::abstract_net* dvlnet_inst;
+static std::unique_ptr<net::abstract_net> dvlnet_inst;
 
 /**
  * Initialize a connection provider.
@@ -28,7 +28,7 @@ int SNetInitializeProvider(
 // Destroy/free the allocated network resources.
 BOOL SNetDestroy()
 {
-	delete dvlnet_inst;
+	dvlnet_inst = nullptr;
 	return true;
 }
 
