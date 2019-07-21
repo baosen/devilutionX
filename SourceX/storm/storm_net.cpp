@@ -93,14 +93,14 @@ BOOL SNetReceiveTurns(
 	return true;
 }
 
-// Get number of turns from the owner that is waiting to be received by you.
+// Get number of turns from the owner that is waiting to be received by your client.
 BOOL SNetGetOwnerTurnsWaiting(DWORD *turns)
 {
 	// Is this the mirror image of SNetGetTurnsInTransit?
 	return dvlnet_inst->SNetGetOwnerTurnsWaiting(turns);
 }
 
-// Get number of turns currently in transit by you.
+// Get number of turns currently in transit by your client.
 BOOL SNetGetTurnsInTransit(int *turns)
 {
 	return dvlnet_inst->SNetGetTurnsInTransit(turns);
