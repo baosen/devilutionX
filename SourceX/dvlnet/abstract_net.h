@@ -29,7 +29,7 @@ public:
 	virtual bool SNetGetOwnerTurnsWaiting(DWORD *turns) = 0;
 	virtual bool SNetGetTurnsInTransit(int *turns) = 0;
 	virtual void setup_gameinfo(buffer_t info) = 0;
-	virtual ~abstract_net();
+	virtual ~abstract_net() {}
 
 	static abstract_net* make_net(provider_t provider);
 };

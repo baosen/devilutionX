@@ -8,10 +8,6 @@
 namespace dvl {
 namespace net {
 
-abstract_net::~abstract_net()
-{
-}
-
 abstract_net* abstract_net::make_net(provider_t provider)
 {
 	if (provider == 'TCPN') {
