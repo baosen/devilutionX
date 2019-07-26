@@ -548,6 +548,7 @@ void LoadMonster(int i)
 	CopyChar(tbuff, &pMonster->packsize);
 	CopyChar(tbuff, &pMonster->mlid);
 
+	tbuff += sizeof(DWORD) * 3; // Skip 3 pointers
 	SyncMonsterAnim(i);
 }
 
@@ -779,10 +780,10 @@ void SaveGame()
 	tbuff = SaveBuff;
 
 	ISave('RETL');
-	OSave((unsigned char)setlevel);
+	OSave(setlevel);
 	WSave(setlvlnum);
 	WSave(currlevel);
-	WSave((unsigned char)leveltype);
+	WSave(leveltype);
 	WSave(ViewX);
 	WSave(ViewY);
 	OSave(invflag);
@@ -1243,6 +1244,8 @@ void SaveMonster(int i)
 	CopyChar(&pMonster->leaderflag, tbuff);
 	CopyChar(&pMonster->packsize, tbuff);
 	CopyChar(&pMonster->mlid, tbuff);
+	
+	tbuff += sizeof(DWORD) * 3; // Skip 3 pointers
 }
 
 void SaveMissile(int i)
@@ -1462,7 +1465,7 @@ void SaveLevel()
 	int i, j;
 	char szName[MAX_PATH];
 	int dwLen;
-	unsigned char *SaveBuff;
+	BYTE *SaveBuff;
 
 	if (!currlevel)
 		glSeedTbl[0] = GetRndSeed();
@@ -1543,10 +1546,10 @@ void SaveLevel()
 	pfile_write_save_file(szName, SaveBuff, tbuff - SaveBuff, dwLen);
 	mem_free_dbg(SaveBuff);
 
-	if (setlevel == 0)
-		plr[myplr]._pLvlVisited[currlevel] = 1;
+	if (!setlevel)
+		plr[myplr]._pLvlVisited[currlevel] = TRUE;
 	else
-		plr[myplr]._pSLvlVisited[setlvlnum] = 1;
+		plr[myplr]._pSLvlVisited[setlvlnum] = TRUE;
 }
 
 void LoadLevel()
