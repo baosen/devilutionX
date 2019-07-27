@@ -39,8 +39,8 @@ BOOL SNetSendServerChatCommand(const char *command)
 }
 
 // Send a message directly to a player over the network,
-// although the game never sends a direct message to one of the players.
-// It only broadcasts messages to all players.
+// although the game never sends a message directly to one of the players.
+// The game only broadcasts messages to all players.
 BOOL SNetSendMessage(
     int playerID,           // player ID.
     void *data,             // message data to send.
