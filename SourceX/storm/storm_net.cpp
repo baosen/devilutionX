@@ -8,6 +8,8 @@ namespace dvl {
 static std::unique_ptr<net::abstract_net> dvlnet_inst;
 
 static void *context = nullptr;
+static void *publisher = nullptr;
+static void *subscriber = nullptr;
 
 /**
  * Initialize a connection provider.
@@ -37,7 +39,18 @@ int SNetInitializeProvider(
 // Destroy/free the allocated network resources.
 BOOL SNetDestroy()
 {
-	zmq_ctx_destroy(context);
+	if (publisher) {
+		zmq_close(publisher);
+		publisher = nullptr;
+	}
+	if (subscriber) {
+		zmq_close(subscriber);
+		subscriber = nullptr;
+	}
+	if (context) {
+		zmq_ctx_destroy(context);
+		context = nullptr;
+	}
 	dvlnet_inst = nullptr;
 	return true;
 }
@@ -173,6 +186,18 @@ BOOL SNetCreateGame(
 	// Init resources.
 	if (GameTemplateSize != 8)
 		ABORT();
+
+	publisher = zmq_socket(context, ZMQ_PUB);
+	if (!publisher) {
+		fprintf(stderr, "%s\n", zmq_strerror(errno));
+		return false;
+	}
+	subscriber = zmq_socket(context, ZMQ_SUB);
+	if (!subscriber) {
+		fprintf(stderr, "%s\n", zmq_strerror(errno));
+		return false;
+	}
+
 	net::buffer_t game_init_info(GameTemplateData, GameTemplateData + GameTemplateSize);
 	dvlnet_inst->setup_gameinfo(std::move(game_init_info));
 
