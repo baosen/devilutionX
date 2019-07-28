@@ -183,7 +183,7 @@ BOOL SNetCreateGame(
     int *playerID                  // outputs a generated player ID for the user that created the game.
 )
 {
-	// Init resources.
+	// Initialize resources.
 	if (GameTemplateSize != 8)
 		ABORT();
 
@@ -198,8 +198,8 @@ BOOL SNetCreateGame(
 		return false;
 	}
 
-	net::buffer_t game_init_info(GameTemplateData, GameTemplateData + GameTemplateSize);
-	dvlnet_inst->setup_gameinfo(std::move(game_init_info));
+	// Setup game info.
+	dvlnet_inst->setup_gameinfo(std::move(net::buffer_t(GameTemplateData, GameTemplateData + GameTemplateSize)));
 
 	// Set IP-address to connect to and save it to the registry.
 	char addrstr[129] = "0.0.0.0";
