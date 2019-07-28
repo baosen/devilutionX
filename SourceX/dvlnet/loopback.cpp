@@ -3,91 +3,87 @@
 
 namespace dvl {
 namespace net {
-
-int loopback::create(std::string addrstr, std::string passwd)
-{
-	return plr_single;
-}
-
-int loopback::join(std::string addrstr, std::string passwd)
-{
-	ABORT();
-}
-
-bool loopback::SNetReceiveMessage(int *sender, char **data, int *size)
-{
-	if (message_queue.empty())
-		return false;
-	message_last = message_queue.front();
-	message_queue.pop();
-	*sender = plr_single;
-	*size = message_last.size();
-	*data = reinterpret_cast<char *>(message_last.data());
-	return true;
-}
-
-bool loopback::SNetSendMessage(int dest, void *data, unsigned int size)
-{
-	if (dest == plr_single || dest == SNPLAYER_ALL) {
-		const auto raw_message = reinterpret_cast<unsigned char *>(data);
-		message_queue.push(buffer_t(raw_message, raw_message + size));
+	int loopback::create(std::string addrstr, std::string passwd)
+	{
+		return plr_single;
 	}
-	return true;
-}
 
-bool loopback::SNetReceiveTurns(char **data, unsigned int *size, DWORD *status)
-{
-	// TODO: Check that this is safe.
-	return true;
-}
+	int loopback::join(std::string addrstr, std::string passwd)
+	{
+		ABORT();
+	}
 
-bool loopback::SNetSendTurn(char *data, unsigned int size)
-{
-	// TODO: Check that this is safe.
-	return true;
-}
+	bool loopback::SNetReceiveMessage(int *sender, char **data, int *size)
+	{
+		if (message_queue.empty())
+			return false;
+		message_last = message_queue.front();
+		message_queue.pop();
+		*sender = plr_single;
+		*size = message_last.size();
+		*data = reinterpret_cast<char *>(message_last.data());
+		return true;
+	}
 
-bool loopback::SNetRegisterEventHandler(event_type evtype,
-    SEVTHANDLER func)
-{
-	// not called in real singleplayer mode
-	// not needed in pseudo multiplayer mode (?)
-	return true;
-}
+	bool loopback::SNetSendMessage(int dest, void *data, unsigned int size)
+	{
+		if (dest == plr_single || dest == SNPLAYER_ALL) {
+			const auto raw_message = reinterpret_cast<unsigned char *>(data);
+			message_queue.push(buffer_t(raw_message, raw_message + size));
+		}
+		return true;
+	}
 
-bool loopback::SNetUnregisterEventHandler(event_type evtype,
-    SEVTHANDLER func)
-{
-	// not called in real singleplayer mode
-	// not needed in pseudo multiplayer mode (?)
-	return true;
-}
+	bool loopback::SNetReceiveTurns(char **data, unsigned int *size, DWORD *status)
+	{
+		// TODO: Check that this is safe.
+		return true;
+	}
 
-bool loopback::SNetLeaveGame(int type)
-{
-	return true;
-}
+	bool loopback::SNetSendTurn(char *data, unsigned int size)
+	{
+		// TODO: Check that this is safe.
+		return true;
+	}
 
-bool loopback::SNetDropPlayer(int playerid, DWORD flags)
-{
-	return true;
-}
+	bool loopback::SNetRegisterEventHandler(event_type evtype, SEVTHANDLER func)
+	{
+		// not called in real singleplayer mode
+		// not needed in pseudo multiplayer mode (?)
+		return true;
+	}
 
-void loopback::setup_gameinfo(buffer_t info)
-{
-}
+	bool loopback::SNetUnregisterEventHandler(event_type evtype, SEVTHANDLER func)
+	{
+		// not called in real singleplayer mode
+		// not needed in pseudo multiplayer mode (?)
+		return true;
+	}
 
-bool loopback::SNetGetOwnerTurnsWaiting(DWORD *turns)
-{
-	*turns = 0;
-	return true;
-}
+	bool loopback::SNetLeaveGame(int type)
+	{
+		return true;
+	}
 
-bool loopback::SNetGetTurnsInTransit(int *turns)
-{
-	*turns = 0;
-	return true;
-}
+	bool loopback::SNetDropPlayer(int playerid, DWORD flags)
+	{
+		return true;
+	}
 
+	void loopback::setup_gameinfo(buffer_t info)
+	{
+	}
+
+	bool loopback::SNetGetOwnerTurnsWaiting(DWORD *turns)
+	{
+		*turns = 0;
+		return true;
+	}
+
+	bool loopback::SNetGetTurnsInTransit(int *turns)
+	{
+		*turns = 0;
+		return true;
+	}
 } // namespace net
 } // namespace dvl
