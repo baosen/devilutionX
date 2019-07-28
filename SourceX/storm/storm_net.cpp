@@ -28,7 +28,7 @@ int SNetInitializeProvider(
 {
 	context = zmq_ctx_new();
 	if (!context) {
-		fprintf(stderr, "%s\n", zmq_strerror(errno));
+		printf("%s\n", zmq_strerror(errno));
 		return 0;
 	}
 
@@ -189,12 +189,12 @@ BOOL SNetCreateGame(
 
 	publisher = zmq_socket(context, ZMQ_PUB);
 	if (!publisher) {
-		fprintf(stderr, "%s\n", zmq_strerror(errno));
+		printf("%s\n", zmq_strerror(errno));
 		return false;
 	}
 	subscriber = zmq_socket(context, ZMQ_SUB);
 	if (!subscriber) {
-		fprintf(stderr, "%s\n", zmq_strerror(errno));
+		printf("%s\n", zmq_strerror(errno));
 		return false;
 	}
 
