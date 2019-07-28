@@ -22,7 +22,6 @@ public:
 	virtual bool SNetSendMessage(int dest, void* data, unsigned int size) = 0;
 	virtual bool SNetReceiveTurns(char** data, unsigned int* size, DWORD* status) = 0;
 	virtual bool SNetSendTurn(char* data, unsigned int size) = 0;
-	virtual int SNetGetProviderCaps(struct _SNETCAPS* caps) = 0;
 	virtual bool SNetRegisterEventHandler(event_type evtype, SEVTHANDLER func) = 0;
 	virtual bool SNetUnregisterEventHandler(event_type evtype, SEVTHANDLER func) = 0;
 	virtual bool SNetLeaveGame(int type) = 0;
