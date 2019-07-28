@@ -1,10 +1,13 @@
 #include "devilution.h"
 #include "dvlnet/abstract_net.h"
 #include "stubs.h"
+#include <zmq.h>
 
 namespace dvl {
 
 static std::unique_ptr<net::abstract_net> dvlnet_inst;
+
+static void *context = nullptr;
 
 /**
  * Initialize a connection provider.
@@ -21,6 +24,12 @@ int SNetInitializeProvider(
     struct _SNETVERSIONDATA *fileinfo     // file information.
 )
 {
+	context = zmq_ctx_new();
+	if (!context) {
+		fprintf(stderr, "%s\n", zmq_strerror(errno));
+		return 0;
+	}
+
 	dvlnet_inst = net::abstract_net::make_net(provider);
 	return ui_info->selectnamecallback(client_info, user_info, ui_info, fileinfo, provider, NULL, 0, NULL, 0, NULL);
 }
@@ -28,6 +37,7 @@ int SNetInitializeProvider(
 // Destroy/free the allocated network resources.
 BOOL SNetDestroy()
 {
+	zmq_ctx_destroy(context);
 	dvlnet_inst = nullptr;
 	return true;
 }
@@ -160,14 +170,17 @@ BOOL SNetCreateGame(
     int *playerID                  // outputs a generated player ID for the user that created the game.
 )
 {
+	// Init resources.
 	if (GameTemplateSize != 8)
 		ABORT();
-
 	net::buffer_t game_init_info(GameTemplateData, GameTemplateData + GameTemplateSize);
 	dvlnet_inst->setup_gameinfo(std::move(game_init_info));
 
+	// Set IP-address to connect to and save it to the registry.
 	char addrstr[129] = "0.0.0.0";
 	SRegLoadString("dvlnet", "bindaddr", 0, addrstr, 128);
+
+	// Create the game.
 	return (*playerID = dvlnet_inst->create(addrstr, pszGamePassword)) != -1;
 }
 

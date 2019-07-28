@@ -227,7 +227,8 @@ target_link_libraries(devilutionx PRIVATE
   SDL2::SDL2main
   SDL2::SDL2_ttf
   SDL2::SDL2_mixer
-  sodium)
+  sodium
+  zmq)
 
 target_compile_definitions(devilution PRIVATE DEVILUTION_ENGINE)
 target_compile_definitions(devilution PUBLIC
